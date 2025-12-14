@@ -1,32 +1,52 @@
 async function predict() {
-  const fileInput = document.getElementById("imageInput");
+  const input = document.getElementById("imageInput");
   const resultDiv = document.getElementById("result");
 
-  if (!fileInput.files.length) {
-    resultDiv.innerText = "⚠️ Pilih gambar dulu";
+  if (!input.files.length) {
+    alert("Upload gambar dulu!");
     return;
   }
 
-  resultDiv.innerText = "⏳ Memproses...";
+  resultDiv.innerHTML = "⏳ Memproses...";
 
-  const formData = new FormData();
-  formData.append("file", fileInput.files[0]);
+  const file = input.files[0];
+  const reader = new FileReader();
 
-  const response = await fetch(
-    "https://yogssss-projek-akhir.hf.space",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        data: [null]
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
+  reader.onload = async () => {
+    const base64Image = reader.result.split(",")[1];
+
+    try {
+      const response = await fetch(
+        "https://yogssss-projek-akhir.hf.space",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            data: [
+              `data:image/jpeg;base64,${base64Image}`
+            ]
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      // Gradio output → data.data
+      const predictionText = data.data[0];
+      const confidence = data.data[1];
+
+      resultDiv.innerHTML = `
+        <h3>✅ Hasil Prediksi</h3>
+        <p><b>${predictionText}</b></p>
+        <pre>${JSON.stringify(confidence, null, 2)}</pre>
+      `;
+    } catch (error) {
+      console.error(error);
+      resultDiv.innerHTML = "❌ Gagal memproses gambar";
     }
-  );
+  };
 
-  const result = await response.json();
-
-  // ambil output text dari gradio
-  resultDiv.innerText = "✅ " + result.data[0];
+  reader.readAsDataURL(file);
 }
