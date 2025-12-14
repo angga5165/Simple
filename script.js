@@ -44,7 +44,10 @@ tabBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     // Remove active class from all
     tabBtns.forEach(b => b.classList.remove("active"));
-    tabContents.forEach(c => c.classList.remove("active"));
+    tabContents.forEach(c => {
+      c.classList.remove("active");
+      c.style.display = ""; // Reset inline display from setPreview/clearBtn
+    });
 
     // Add active to clicked
     btn.classList.add("active");
