@@ -115,11 +115,18 @@ document.addEventListener("paste", (e) => {
 });
 
 // --- COMMON PREVIEW LOGIC ---
+// --- COMMON PREVIEW LOGIC ---
 function setPreview(fileOrBlob) {
   currentFile = fileOrBlob;
   previewImg.src = URL.createObjectURL(fileOrBlob);
   previewImg.style.display = "block";
-  clearBtn.style.display = "inline-block";
+  clearBtn.style.display = "block"; // Block helps with margin: auto centering
+
+  // Hide Tabs & Input Areas
+  const tabs = document.querySelector(".tabs");
+  if (tabs) tabs.style.display = "none";
+
+  document.querySelectorAll(".tab-content").forEach(el => el.style.display = "none");
 
   // Auto scroll to preview
   previewImg.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -131,7 +138,19 @@ clearBtn.addEventListener("click", () => {
   previewImg.style.display = "none";
   clearBtn.style.display = "none";
   resultDiv.innerHTML = "";
-  imageInput.value = ""; // Reset input file
+  imageInput.value = "";
+
+  // Show Tabs
+  const tabs = document.querySelector(".tabs");
+  if (tabs) tabs.style.display = "inline-flex";
+
+  // Restore Active Input
+  const activeBtn = document.querySelector(".tab-btn.active");
+  if (activeBtn) {
+    const tabId = activeBtn.getAttribute("data-tab");
+    const activeContent = document.getElementById(`mode-${tabId}`);
+    if (activeContent) activeContent.style.display = "block";
+  }
 });
 
 // --- PREDICTION LOGIC ---
