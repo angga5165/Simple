@@ -434,18 +434,14 @@ footer {
 }
 
 /* Video Styles */
-.video-placeholder {
-  margin-top: 1rem;
+/* Video Styles */
+.video-box video {
   width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #f1f5f9;
   border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #94a3b8;
-  font-weight: 500;
-  border: 2px dashed #cbd5e1;
+  margin-top: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 /* Responsive Grid */
