@@ -82,6 +82,12 @@ section {
   border: 1px solid #e2e8f0;
 }
 
+.detector-box h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #1e293b;
+}
+
 /* INPUT AREA */
 
 /* TABS STYLE */
