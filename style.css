@@ -290,6 +290,7 @@ button#predictBtn:disabled {
   border-radius: var(--radius);
   margin-bottom: 1.5rem;
   color: white;
+  text-align: left;
 }
 
 .verdict-safe {
@@ -348,6 +349,14 @@ button#predictBtn:disabled {
   background: var(--primary-color);
   border-radius: 99px;
   transition: width 1s ease-out;
+}
+
+.qc-info {
+  text-align: left;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.5;
 }
 
 /* FOOTER */
