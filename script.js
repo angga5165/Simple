@@ -196,7 +196,7 @@ predictBtn.onclick = async () => {
   resultDiv.innerHTML = `
     <div class="processing-state">
       <div class="spinner">⏳</div>
-      <p>Mengompres & Memproses...</p>
+      <p>Mengompres & Memproses<span class="loading-dots"></span></p>
     </div>
   `;
 
