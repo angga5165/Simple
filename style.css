@@ -545,15 +545,17 @@ footer {
   font-size: 3rem;
   margin-bottom: 1rem;
   display: inline-block;
-  animation: spin 2s linear infinite;
+  transform-origin: center;
+  will-change: transform;
+  animation: spin 1.5s linear infinite;
 }
 
 @keyframes spin {
-  0% {
+  from {
     transform: rotate(0deg);
   }
 
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
