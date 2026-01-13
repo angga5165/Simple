@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Wilayah & Usaha</title>
+</head>
+<body>
+
+<h2>Data Usaha Berbasis Wilayah</h2>
+
+<select id="provinsi" onchange="loadKabupaten()">
+    <option>Pilih Provinsi</option>
+    {% for id, nama in provinsi.items() %}
+    <option value="{{id}}">{{nama}}</option>
+    {% endfor %}
+</select>
+
+<select id="kabupaten" onchange="loadKecamatan()"></select>
+<select id="kecamatan" onchange="loadKelurahan()"></select>
+<select id="kelurahan" onchange="loadUsaha()"></select>
+
+<ul id="usaha"></ul>
+
+<script>
+function loadKabupaten() {
+    let id = provinsi.value
+    fetch(`/kabupaten/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            kabupaten.innerHTML = "<option>Pilih Kabupaten</option>"
+            data.forEach(d => {
+                kabupaten.innerHTML += `<option value="${d.id}">${d.nama}</option>`
+            })
+        })
+}
+
+function loadKecamatan() {
+    let id = kabupaten.value
+    fetch(`/kecamatan/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            kecamatan.innerHTML = "<option>Pilih Kecamatan</option>"
+            data.forEach(d => {
+                kecamatan.innerHTML += `<option value="${d.id}">${d.nama}</option>`
+            })
+        })
+}
+
+function loadKelurahan() {
+    let id = kecamatan.value
+    fetch(`/kelurahan/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            kelurahan.innerHTML = "<option>Pilih Kelurahan</option>"
+            data.forEach(d => {
+                kelurahan.innerHTML += `<option value="${d.id}">${d.nama}</option>`
+            })
+        })
+}
+
+function loadUsaha() {
+    let id = kelurahan.value
+    fetch(`/usaha/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            usaha.innerHTML = ""
+            data.forEach(u => {
+                usaha.innerHTML += `<li>${u}</li>`
+            })
+        })
+}
+</script>
+
+</body>
+</html>
